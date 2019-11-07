@@ -1,0 +1,19 @@
+version: '2.0'
+
+services:
+  db:
+    image: postgres
+    # volumes:
+    #   - /home/db:/var/lib/postgresql/data
+    env_file: 
+      - ./db.env
+
+  web:
+    build: .
+    image: micropyramid/django-crm:1
+    env_file: 
+      - ./db.env
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
